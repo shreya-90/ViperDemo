@@ -17,7 +17,9 @@ class HomeViewController: UIViewController {
 
     var presenter : HomePresentation!
     
+    @IBOutlet weak var addBagControl: AddBagControl!
     @IBOutlet weak var helloLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -26,7 +28,14 @@ class HomeViewController: UIViewController {
          //VIPER way
         
         //presenter asks interactor to get data from server and on receiving presenter gives it back to the view
-        self.presenter.viewDidLoad() // now presenters viewdidload will display VC data on load 
+        self.presenter.viewDidLoad() // now presenters viewdidload will display VC data on load
+        
+        //MVVM
+        let viewModel = AddBagViewModel(title: "Add To Bag" , stepValue: 0)
+        addBagControl.configure(usimgViewModel: viewModel ) { (stepValue) in
+            print("Current value is \(stepValue)")
+        }
+        
     }
 
 
