@@ -15,7 +15,11 @@ class TabBarModuleBuilder {
     static  func build(usingSubModules submodules : TabBarRouter.SubModules) -> UITabBarController {
     
         let tabs = TabBarRouter.tabs(usingSubmodules: submodules)
-        let tabBarController = GroceryTabBarController(tabs: tabs)   //programatically building tabbar
+        let interactor  = CartInteractor(database: RealmDatabase.shared)
+        let presenter = TabBarPresenter(interactor: interactor)
+        let tabBarController = GroceryTabBarController(tabs: tabs, presenter: presenter) //programatically building tabbar
+        presenter.view = tabBarController
+//      tabBarController.tabBar.tintColor = UIColor.primary
         return tabBarController
     }
 }

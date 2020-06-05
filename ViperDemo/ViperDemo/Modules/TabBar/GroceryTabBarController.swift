@@ -13,11 +13,17 @@ typealias GroceryTabs = (         //returned by Tab Router , same as submodules 
     cart : UIViewController,
     profile : UIViewController
 )
+protocol TabBarView : class {
+    func updateCartCount(count : Int) -> Void
+}
 
 class GroceryTabBarController: UITabBarController {
 
-    
-    init(tabs : GroceryTabs) {
+    let cartTab : UIViewController
+    var presenter : TabBarPresentation?
+    init(tabs : GroceryTabs,presenter : TabBarPresentation) {
+        self.presenter = presenter
+        cartTab = tabs.cart
         super.init(nibName: nil, bundle : nil)
         viewControllers = [tabs.home, tabs.cart, tabs.profile ]
     }
@@ -28,19 +34,17 @@ class GroceryTabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.presenter?.viewDidLoad() 
         // Do any additional setup after loading the view.
     }
     
+}
 
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+extension GroceryTabBarController : TabBarView {
+    func updateCartCount(count: Int) {
+        self.cartTab.tabBarItem.badgeValue = "\(count)"
     }
-    */
-
+    
+    
 }

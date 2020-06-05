@@ -29,6 +29,10 @@ class HomeInteractor {
 
 extension HomeInteractor : HomeUseCase {
     func addToCart(skuItem: SkuItem) -> Bool {
+        
+        guard   skuItem.quantity > 0 else {
+             return self.database.delete(using: skuItem.skuId )
+        }
        return self.database.updateCart(using: CartItem(skuId: skuItem.skuId, value: skuItem.quantity ))
     }
     

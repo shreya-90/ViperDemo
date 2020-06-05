@@ -9,7 +9,9 @@
 import Foundation
 
 
-
+typealias CartCountClosure =  (Int) -> (Void)
 protocol CartDB {
     func updateCart(using cartItem : CartItem) -> Bool
+    func delete(using skuId : String) -> Bool
+    func getCount(closure : @escaping CartCountClosure) -> Void
 }
