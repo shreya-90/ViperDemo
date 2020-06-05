@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Home View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController storyboardIdentifier="HomeViewController" id="BYZ-38-t0r" customClass="HomeViewController" customModule="ViperDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xch-3d-JS5">
+                                <rect key="frame" x="123.5" y="323.5" width="128.5" height="20.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20.5" id="i4A-RD-hWP"/>
+                                    <constraint firstAttribute="width" constant="128.5" id="xDQ-lT-DWd"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XYV-Dz-flk" customClass="AddBagControl" customModule="ViperDemo" customModuleProvider="target">
+                                <rect key="frame" x="67.5" y="447" width="240" height="128"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="fTk-Jc-KB4"/>
+                                    <constraint firstAttribute="height" constant="128" id="lcp-hd-HrK"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="SCe-dg-X7d">
+                                <rect key="frame" x="0.0" y="103" width="375" height="564"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pick Fresh Groceries" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G20-hw-nbZ">
+                                <rect key="frame" x="16" y="41" width="172" height="25"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="21"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="G20-hw-nbZ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="6kI-hI-Uan"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="SCe-dg-X7d" secondAttribute="trailing" id="9tb-wb-nDn"/>
+                            <constraint firstItem="SCe-dg-X7d" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="B07-2b-RQD"/>
+                            <constraint firstItem="Xch-3d-JS5" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="EIW-3h-xRp"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="XYV-Dz-flk" secondAttribute="bottom" constant="92" id="Hir-we-cAG"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="SCe-dg-X7d" secondAttribute="bottom" id="UXv-X2-eZ3"/>
+                            <constraint firstItem="Xch-3d-JS5" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="XiN-y6-uWC"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="G20-hw-nbZ" secondAttribute="trailing" constant="187" id="b72-u5-Trd"/>
+                            <constraint firstItem="XYV-Dz-flk" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="f6p-OQ-Jby"/>
+                            <constraint firstItem="G20-hw-nbZ" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="21" id="maE-vW-ZkV"/>
+                            <constraint firstItem="SCe-dg-X7d" firstAttribute="top" secondItem="G20-hw-nbZ" secondAttribute="bottom" constant="37" id="xw6-qr-egi"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <connections>
+                        <outlet property="addBagControl" destination="XYV-Dz-flk" id="7H7-Tf-qdL"/>
+                        <outlet property="helloLabel" destination="Xch-3d-JS5" id="ST9-c3-8di"/>
+                        <outlet property="tableView" destination="SCe-dg-X7d" id="iYt-SJ-PWU"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="56.799999999999997" y="63.418290854572717"/>
+        </scene>
+    </scenes>
+</document>

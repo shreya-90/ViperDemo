@@ -13,8 +13,8 @@ class HomeModuleBuilder {
     
     
     
-    static func build(usingNavigationFactory factory : NavigationFactory) -> UINavigationController {
-       let storyboard =  UIStoryboard(name: "Main", bundle: nil)
+    static func build(usingNavigationFactory factory : NavigationFactory) -> UIViewController {
+       let storyboard =  UIStoryboard(name: "Home", bundle: nil)
        let view = storyboard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
         let interactor = HomeInteractor(service: StubService.shared, database: RealmDatabase.shared  )
         let router = HomeRouter(vc: view)

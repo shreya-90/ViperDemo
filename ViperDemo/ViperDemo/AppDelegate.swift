@@ -18,8 +18,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
          window = UIWindow(frame: UIScreen.main.bounds)
-        let initVC = HomeModuleBuilder.build(usingNavigationFactory: NavigationBuilder.build)
-        window?.rootViewController = initVC
+        //let initVC = HomeModuleBuilder.build(usingNavigationFactory: NavigationBuilder.build)
+        let subModules = (
+            home : HomeModuleBuilder.build(usingNavigationFactory: NavigationBuilder.build),
+            cart : CartBuilder.build(usingNavigationFactory: NavigationBuilder.build),
+            profile : ProfileBuilder.build(usingNavigationFactory: NavigationBuilder.build)
+        )
+        let tabBarController = TabBarModuleBuilder.build(usingSubModules: subModules)
+        window?.rootViewController = tabBarController
         window?.makeKeyAndVisible()
         return true
     }

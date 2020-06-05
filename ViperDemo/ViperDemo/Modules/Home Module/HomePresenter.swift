@@ -72,13 +72,15 @@ extension HomePresenter : HomePresentation {
 
 
 struct GroceryItemViewModel {
+    let id: String
     let title : String
     let details : String
     let image : String
     let price : String
     
     init(using groceryModel : Grocery ){
-         self.title = groceryModel.title
+        self.id = groceryModel.skuid
+        self.title = groceryModel.title
         self.details = groceryModel.details
         self.image = groceryModel.image
         self.price = "$ \(groceryModel.price )"

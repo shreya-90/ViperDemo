@@ -15,6 +15,10 @@ class GroceryItemCell2: UITableViewCell {
     
     @IBOutlet weak var productsImgView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
+    
+    @IBOutlet weak var addToBagControl: AddBagControl!
+    
+   
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -26,11 +30,12 @@ class GroceryItemCell2: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func configure(using viewModel : GroceryItemViewModel) ->  Void {
+    func configure(using viewModel : GroceryItemViewModel, addToCartClosure: @escaping BagClosure ) ->  Void {
         self.titleLabel.text = viewModel.title
         self.priceLabel.text = viewModel.price
         self.detailsLbl.text = viewModel.details
         self.productsImgView.image = UIImage(named: viewModel.image)
-        
+        self.addToBagControl.configure(usimgViewModel: AddBagViewModel(id: viewModel.id, title: "ADD TO CART", stepValue: 0), bagClosure: addToCartClosure)
+        self.selectionStyle = .none
     }
 }

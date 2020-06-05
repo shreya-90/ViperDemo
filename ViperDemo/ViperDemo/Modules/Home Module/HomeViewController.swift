@@ -42,10 +42,10 @@ class HomeViewController: UIViewController {
         self.presenter.viewDidLoad() // now presenters viewdidload will display VC data on load
         
         //MVVM
-        let viewModel = AddBagViewModel(title: "Add To Bag" , stepValue: 0)
-        addBagControl.configure(usimgViewModel: viewModel ) { (stepValue) in
-            print("Current value is \(stepValue)")
-        }
+//        let viewModel = AddBagViewModel(id: <#String#>, title: "Add To Bag" , stepValue: 0)
+//        addBagControl.configure(usimgViewModel: viewModel ) { (stepValue) in
+//            print("Current value is \(stepValue)")
+//        }
         
         self.tableView.register(UINib(nibName: "GroceryItemCell2", bundle: nil), forCellReuseIdentifier:  HomeViewController.groceryCellID)
         
@@ -80,7 +80,11 @@ extension HomeViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let viewModel = dataSource[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: HomeViewController.groceryCellID, for: indexPath) as! GroceryItemCell2
-        cell.configure(using: viewModel)
+        cell.configure(using: viewModel) { (result) in
+            print("Item aaded with sku = \(result.skuId) and quantity = \(result.stepValue)")
+            let skuItem : SkuItem = (skuId : result.skuId,  quantity : result.stepValue)
+            self.presenter.onAddToCart(skuItem: skuItem)
+        }
         return cell
         
     }
