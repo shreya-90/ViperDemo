@@ -11,11 +11,11 @@ import Foundation
 
 typealias SkuItem = (skuId:String, quantity:Int)
 
-protocol HomeUseCase {
-    func getTitle() -> HomeModel
-    func getGroceries(completion:groceriesClosure) -> Void
-    func addToCart(skuItem:SkuItem) -> Bool
-}
+//protocol HomeUseCase {
+//    func getTitle() -> HomeModel
+//    func getGroceries(completion:groceriesClosure) -> Void
+//    func addToCart(skuItem:SkuItem) -> Bool
+//}
 class HomeInteractor {
     var service :GroceriesAPI
     var database : CartDB
@@ -27,17 +27,8 @@ class HomeInteractor {
 
 }
 
-extension HomeInteractor : HomeUseCase {
-    func addToCart(skuItem: SkuItem) -> Bool {
-        
-        guard   skuItem.quantity > 0 else {
-             return self.database.delete(using: skuItem.skuId )
-        }
-       return self.database.updateCart(using: CartItem(skuId: skuItem.skuId, value: skuItem.quantity ))
-    }
-    
-    
-    
+extension HomeInteractor  {
+  
     func getTitle() -> HomeModel {
         return HomeModel(title: "Hello VIPER :)")
     }
@@ -47,6 +38,10 @@ extension HomeInteractor : HomeUseCase {
             completion(results)
             
         }
+    }
+    
+    func getCategories(completion : @escaping categoriesClosure) -> Void {
+        self.service.fetchCategories(completion: completion)
     }
     
     

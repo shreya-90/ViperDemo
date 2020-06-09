@@ -16,10 +16,15 @@ protocol TabBarPresentation {
 class TabBarPresenter {
 //    let viewcontroller : TabBarView
     weak var view : TabBarView?
-    let interactor : CartUseCase
     
-    init(interactor: CartUseCase) {
-        self.interactor = interactor
+    typealias UseCase = (
+        getCartCount : ( @escaping CartCountClosure ) -> Void , ()
+    )
+    
+    let useCase : UseCase
+    
+    init(useCase : UseCase) {
+        self.useCase = useCase
         
     }
     
@@ -27,7 +32,7 @@ class TabBarPresenter {
 
 extension TabBarPresenter : TabBarPresentation {
     func viewDidLoad() {
-        self.interactor.getCartCount { (count) -> (Void) in
+        self.useCase.getCartCount { (count) -> (Void) in
             self.view?.updateCartCount(count: count )
         }
     }

@@ -35,7 +35,7 @@ class GroceryItemCell2: UITableViewCell {
         self.priceLabel.text = viewModel.price
         self.detailsLbl.text = viewModel.details
         self.productsImgView.image = UIImage(named: viewModel.image)
-        self.addToBagControl.configure(usimgViewModel: AddBagViewModel(id: viewModel.id, title: "ADD TO CART", stepValue: 0), bagClosure: addToCartClosure)
+        self.addToBagControl.configure(usimgViewModel: viewModel.cartValue, bagClosure: addToCartClosure)
         self.selectionStyle = .none
     }
 }

@@ -16,9 +16,17 @@ class HomeModuleBuilder {
     static func build(usingNavigationFactory factory : NavigationFactory) -> UIViewController {
        let storyboard =  UIStoryboard(name: "Home", bundle: nil)
        let view = storyboard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
-        let interactor = HomeInteractor(service: StubService.shared, database: RealmDatabase.shared  )
+        let homeInteractor = HomeInteractor(service: GroceryService.shared, database: RealmDatabase.shared  )
+        let cartIntercator = CartInteractor(database:RealmDatabase.shared)
+        let imageInteractor = ImageInteractor(service: GroceryService.shared )
         let router = HomeRouter(vc: view)
-        let presenter = HomePresenter(view: view, interactor: interactor, router: router)
+        let presenter = HomePresenter(view: view, useCase: (
+            getCategories : homeInteractor.getCategories,
+            addToCart : cartIntercator.addToCart,
+            getCartItem : cartIntercator.getCartItem,
+            fetchThumbnail : imageInteractor.fetchThumbnail
+            ) , router: router)
+        
         view.presenter = presenter
         return factory(view)
     }

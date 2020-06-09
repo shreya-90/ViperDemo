@@ -20,7 +20,7 @@ class AddBagControl: UIView {
     @IBOutlet weak var plusButton: UIButton!
     
 //    var stepperValue : Int = 0 {
-    var viewModel : AddBagViewModel! {
+    var viewModel : CartValueViewModel! {
         didSet {
             
 //            let isHidden = stepperValue > 0
@@ -86,7 +86,7 @@ class AddBagControl: UIView {
     }
     
    
-    func configure(usimgViewModel viewModel: AddBagViewModel,bagClosure: @escaping BagClosure){
+    func configure(usimgViewModel viewModel: CartValueViewModel,bagClosure: @escaping BagClosure){
         self.viewModel = viewModel
          self.addToBagButton.setTitle(viewModel.title, for: .normal)
          self.viewModel.stepValue = 0
@@ -99,33 +99,33 @@ class AddBagControl: UIView {
 }
 
 
-class AddBagViewModel {
+class CartValueViewModel {
     let id: String
     var title : String
     var stepValue : Int
     var showStepper :  Bool
     
-    init(id: String,title:String,stepValue:Int) {
+    init(id: String,stepValue:Int) {
         self.id = id
-        self.title = title
+        self.title = "ADD TO BAG"
         self.stepValue = stepValue
         self.showStepper = stepValue > 0
     }
 }
 
-extension AddBagViewModel {
-    func onAddToBag()->AddBagViewModel {
-       return AddBagViewModel(id: id,title: self.title, stepValue: 1)
+extension CartValueViewModel {
+    func onAddToBag()->CartValueViewModel {
+       return CartValueViewModel(id: id,stepValue: 1)
     }
     
-    func onIncrement()->AddBagViewModel {
+    func onIncrement()->CartValueViewModel {
         guard self.stepValue < 10  else { return self  }
-         return AddBagViewModel(id: id,title: self.title, stepValue: self.stepValue+1)
+         return CartValueViewModel(id: id, stepValue: self.stepValue+1)
     }
     
-    func onDecrement()->AddBagViewModel {
+    func onDecrement()->CartValueViewModel {
         guard self.stepValue > 0  else { return self }
-         return AddBagViewModel(id: id,title: self.title, stepValue: self.stepValue-1)
+         return CartValueViewModel(id: id, stepValue: self.stepValue-1)
     }
 }
 

@@ -11,11 +11,19 @@ import UIKit
 
 protocol HomeView : class { 
     func updateView(title:String) -> Void
-    func updateGroceries(groceriesList : [GroceryItemViewModel])
+    func updateGroceries(groceriesList : [GroceryItemViewModel]) -> ()
+    func loadCategories(categoriesList : [CategoryItemViewModel]) -> ()
 }
 
 class HomeViewController: UIViewController {
 
+    
+    @IBOutlet weak var topCategoryView: CategoryView!
+    @IBOutlet weak var rightCategoryView: CategoryView!
+    @IBOutlet weak var topLeftCategoryView: CategoryView!
+    @IBOutlet weak var bottomLeftCategoryView: CategoryView!
+    
+    
     var presenter : HomePresentation!
     var dataSource : [GroceryItemViewModel] = [] {
         
@@ -47,10 +55,13 @@ class HomeViewController: UIViewController {
 //            print("Current value is \(stepValue)")
 //        }
         
-        self.tableView.register(UINib(nibName: "GroceryItemCell2", bundle: nil), forCellReuseIdentifier:  HomeViewController.groceryCellID)
         
-        self.tableView.dataSource = self
-        self.tableView.delegate = self
+        //TODO - Use in Details screens 
+//        self.tableView.register(UINib(nibName: "GroceryItemCell2", bundle: nil), forCellReuseIdentifier:  HomeViewController.groceryCellID)
+//
+//        self.tableView.dataSource = self
+//        self.tableView.delegate = self
+        
         
     }
 
@@ -59,6 +70,34 @@ class HomeViewController: UIViewController {
 
 
 extension HomeViewController : HomeView {
+    func loadCategories(categoriesList: [CategoryItemViewModel]) {
+        topCategoryView.configure(usingViewModel: categoriesList[0]) { [weak self] (imageName) in
+            self?.presenter.onFetchThumbnail(imageName: imageName, completion: { (data) in
+                guard let image = UIImage(data: data) else { return }
+                self?.topCategoryView.updateImage(image: image)
+            })
+        }
+        rightCategoryView.configure(usingViewModel: categoriesList[1]) { [weak self] (imageName) in
+            self?.presenter.onFetchThumbnail(imageName: imageName, completion: { (data) in
+                guard let image = UIImage(data: data) else { return }
+                self?.rightCategoryView.updateImage(image: image)
+            })
+        }
+        topLeftCategoryView.configure(usingViewModel: categoriesList[2]) { [weak self] (imageName) in
+            self?.presenter.onFetchThumbnail(imageName: imageName, completion: { (data) in
+                guard let image = UIImage(data: data) else { return }
+                self?.topLeftCategoryView.updateImage(image: image)
+            })
+        }
+        bottomLeftCategoryView.configure(usingViewModel: categoriesList[3]) { [weak self] (imageName) in
+            self?.presenter.onFetchThumbnail(imageName: imageName, completion: { (data) in
+                guard let image = UIImage(data: data) else { return }
+                self?.bottomLeftCategoryView.updateImage(image: image)
+            })
+        }
+    }
+    
+    
     func updateView(title: String) {
         self.helloLabel.text = title
     }

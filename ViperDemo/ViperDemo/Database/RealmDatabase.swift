@@ -23,6 +23,15 @@ class RealmDatabase {
 
 
 extension RealmDatabase : CartDB {
+    func getCartItem(using skuId: String) -> CartItem {
+        let realm = try! Realm()
+        guard let   realmObject = realm.objects(RealmCartItem.self).first(where: {$0.skuId == skuId}) else {
+            return CartItem(skuId: skuId, value: 0)   //empty cartItem
+        }
+        return CartItem(realmCartItem: realmObject)
+        
+    }
+    
     func delete(using skuId: String) -> Bool {
         let realm = try! Realm()
         do {

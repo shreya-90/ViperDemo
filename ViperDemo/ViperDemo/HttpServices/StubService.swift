@@ -9,10 +9,7 @@
 import Foundation
 
 
-typealias groceriesClosure = (GroceryResult) -> Void
-protocol  GroceriesAPI {
-    func fetchGroceries(completion:groceriesClosure) -> ()
-}
+
 
 
 class StubService {
@@ -24,6 +21,10 @@ class StubService {
 }
 
 extension StubService : GroceriesAPI{
+    func fetchCategories(completion: ([Category]) -> Void) {
+        fatalError("No implementation for this")
+    }
+    
     
     func fetchGroceries(completion:groceriesClosure) {
         if let url = Bundle.main.url(forResource: "products", withExtension: "json") {
