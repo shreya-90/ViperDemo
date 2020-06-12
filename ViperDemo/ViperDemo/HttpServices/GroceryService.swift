@@ -11,6 +11,7 @@ import Alamofire
 
 class GroceryService {
     private lazy var httpService = GroceryHttpService()
+    private lazy var imageHttpService = ImageHttpService.shared
     static let shared : GroceryService = GroceryService()
     private init(){
         
@@ -21,26 +22,26 @@ extension GroceryService : ImageAPI
 {
     func fetchThumbnail(imageName: String,completion: @escaping imageClosure) {
         do {
-            try GroceryHttpRouter
-            .downloadImage(imageName: imageName)
-            .request(usingHttpService: httpService)
-                .response(completionHandler: { (result) in
-                    completion(result.data)
-                })
+            try ImageHttpRouter
+            .downloadThumbnail(imageName: imageName)
+            .download(usingImageHttpService:imageHttpService){ response in
+                guard let image = response.result.value else { return }
+                    completion(image)
+            }
             
-        }catch {
+        } catch {
              print("Something went wrong while fetching thumbnail")
         }
     }
     
     func fetchImage(imageName: String,completion: @escaping imageClosure) {
         do {
-            try GroceryHttpRouter
-                .downloadThumbnail(imageName: imageName)
-                .request(usingHttpService: httpService)
-                .response(completionHandler: { (result) in
-                    completion(result.data)
-                })
+            try ImageHttpRouter
+                .downloadImage(imageName: imageName)
+                .download(usingImageHttpService:imageHttpService){ response in
+                    guard let image = response.result.value else { return }
+                    completion(image)
+            }
         } catch {
              print("Something went wrong while fetching images")
         }
@@ -50,6 +51,8 @@ extension GroceryService : ImageAPI
 }
 
 extension GroceryService :  GroceriesAPI {
+    
+    
     func fetchCategories(completion: @escaping ([Category]) -> Void) {
         //start making the htto calls to fetch categories
         
@@ -66,8 +69,19 @@ extension GroceryService :  GroceriesAPI {
         }
     }
     
-    func fetchGroceries(completion: (GroceryResult) -> Void) {
-        
+    func fetchGroceries(categoryId: Int,completion: @escaping (Category) -> Void) {
+        do {
+            try GroceryHttpRouter
+                .getGroceries(categoryId: categoryId)
+                .request(usingHttpService: httpService)
+                .responseJSON { (result) in
+                    let groceriesResult = GroceryService.parseGroceriesResult(result: result)
+                    guard let category = groceriesResult else { return }
+                    completion(category)
+            }
+        } catch {
+            print("Something went wrong while parsing groceries response: \(error)")
+        }
     }
     
     
@@ -75,11 +89,8 @@ extension GroceryService :  GroceriesAPI {
 
 
 extension GroceryService {
-    
-    
-   
-        
-        private static func parseCategories(result: DataResponse<Any>) -> [Category] {
+
+    private static func parseCategories(result: DataResponse<Any>) -> [Category] {
             
             guard [200, 201].contains(result.response?.statusCode), let data = result.data else { return [] }
             
@@ -91,6 +102,17 @@ extension GroceryService {
                 print("Something went wrong while parsing categories response")
             }
             return []
+    }
+    
+     private static func parseGroceriesResult(result: DataResponse<Any>) -> Category? {
+        guard [200, 201].contains(result.response?.statusCode), let data = result.data else { return nil }
+        do {
+            let singleResult = try JSONDecoder().decode(SingleCategoryResult.self, from: data)
+            return singleResult.category
+        } catch {
+            print("Something went wrong while parsing groceries response: \(error)")
         }
+        return nil
+    }
     
 }

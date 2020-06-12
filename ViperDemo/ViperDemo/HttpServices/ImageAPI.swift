@@ -7,9 +7,9 @@
 //
 
 import Foundation
+import UIKit
 
-
-typealias imageClosure = (Data?) -> Void
+typealias imageClosure = (UIImage) -> Void
 protocol ImageAPI {
     func fetchThumbnail(imageName: String,completion: @escaping imageClosure) -> Void
     func fetchImage(imageName: String,completion: @escaping imageClosure) -> Void

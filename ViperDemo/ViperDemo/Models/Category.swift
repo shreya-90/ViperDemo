@@ -6,32 +6,34 @@
 //  Copyright © 2019 LetsCodeEasy. All rights reserved.
 //
 
+struct CategoryResult: Codable {
+    let categories: [Category]
+    
+    enum CodingKeys: String, CodingKey {
+        case categories = "data"
+    }
+}
+
+struct SingleCategoryResult: Codable {
+    let category: Category
+    
+    enum CodingKeys: String, CodingKey {
+        case category = "data"
+    }
+}
+
 struct Category: Codable {
     let id: Int
     let category: String
-    let details: String
-    let image: CategoryImage
+    let description: String
+    let categoryImage: BaseImage
+    let groceryResult: GroceryResult?
     
-    
-//    private enum CodingKeys: String, CodingKey {
-//        case id
-//        case category
-//        case description
-//        case imageId = "image_id"
-//        case categoryImage = "image"
-//        case createdAt = "created_at"
-//        case updatedAt = "updated_at"
-//    }
-}
-
-struct CategoryImage: Codable {
-    let id: Int
-    let name: String
-    
-    
-//    private enum CodingKeys: String, CodingKey {
-//        case id
-//        case name
-//        
-//    }
+    private enum CodingKeys: String, CodingKey {
+        case id
+        case category
+        case description = "details"
+        case categoryImage = "image"
+        case groceryResult = "groceries"
+    }
 }

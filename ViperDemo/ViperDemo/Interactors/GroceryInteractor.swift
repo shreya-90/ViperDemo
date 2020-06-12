@@ -16,7 +16,7 @@ typealias SkuItem = (skuId:String, quantity:Int)
 //    func getGroceries(completion:groceriesClosure) -> Void
 //    func addToCart(skuItem:SkuItem) -> Bool
 //}
-class HomeInteractor {
+class GroceryInteractor {
     var service :GroceriesAPI
     var database : CartDB
     
@@ -27,17 +27,15 @@ class HomeInteractor {
 
 }
 
-extension HomeInteractor  {
+extension GroceryInteractor  {
   
     func getTitle() -> HomeModel {
         return HomeModel(title: "Hello VIPER :)")
     }
     
-    func getGroceries(completion:groceriesClosure) -> Void {
-        service.fetchGroceries { (results) in
-            completion(results)
-            
-        }
+    func getGroceries(categoryId: Int,completion: @escaping groceriesClosure) -> Void {
+        self.service.fetchGroceries(categoryId: categoryId, completion: completion)
+        
     }
     
     func getCategories(completion : @escaping categoriesClosure) -> Void {

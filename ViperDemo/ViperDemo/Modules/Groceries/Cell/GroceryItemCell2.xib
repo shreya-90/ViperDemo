@@ -15,7 +15,7 @@
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="GroceryItemCell2" customModule="ViperDemo" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="99.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
@@ -38,50 +38,22 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="GHr-4h-Lil">
-                        <rect key="frame" x="97" y="59" width="207" height="35"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M8D-NJ-kSG">
-                                <rect key="frame" x="0.0" y="0.0" width="62" height="35"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="62" id="LcA-hY-RcJ"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qut-L9-xE1" customClass="AddBagControl" customModule="ViperDemo" customModuleProvider="target">
-                                <rect key="frame" x="87" y="0.0" width="120" height="35"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="120" id="Otv-js-XC3"/>
-                                    <constraint firstAttribute="height" constant="35" id="os0-WO-Ct5"/>
-                                </constraints>
-                            </view>
-                        </subviews>
-                    </stackView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="GHr-4h-Lil" firstAttribute="trailing" secondItem="pRV-Lw-GpK" secondAttribute="trailing" id="6uQ-2t-Dny"/>
                     <constraint firstAttribute="bottom" secondItem="3XB-f9-5ru" secondAttribute="bottom" constant="10.5" id="9Fq-wO-9ex"/>
-                    <constraint firstItem="GHr-4h-Lil" firstAttribute="top" secondItem="pRV-Lw-GpK" secondAttribute="bottom" constant="5" id="EoP-ML-ZPj"/>
-                    <constraint firstItem="GHr-4h-Lil" firstAttribute="leading" secondItem="pRV-Lw-GpK" secondAttribute="leading" id="FjA-bz-4dj"/>
                     <constraint firstItem="3XB-f9-5ru" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="GdT-a3-e24"/>
                     <constraint firstAttribute="trailing" secondItem="MeJ-7c-veO" secondAttribute="trailing" constant="16" id="K76-Bw-zq6"/>
                     <constraint firstItem="3XB-f9-5ru" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="KaE-uX-Cjr"/>
                     <constraint firstItem="MeJ-7c-veO" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="OQH-Ty-UWi"/>
                     <constraint firstItem="pRV-Lw-GpK" firstAttribute="leading" secondItem="MeJ-7c-veO" secondAttribute="leading" id="QSv-Uo-pE3"/>
                     <constraint firstItem="pRV-Lw-GpK" firstAttribute="top" secondItem="MeJ-7c-veO" secondAttribute="bottom" constant="2" id="Rni-iz-sTu"/>
-                    <constraint firstAttribute="bottom" secondItem="GHr-4h-Lil" secondAttribute="bottom" constant="5" id="Tti-sJ-OVZ"/>
                     <constraint firstItem="MeJ-7c-veO" firstAttribute="leading" secondItem="3XB-f9-5ru" secondAttribute="trailing" constant="8" id="m4w-ay-1Vv"/>
                     <constraint firstItem="pRV-Lw-GpK" firstAttribute="trailing" secondItem="MeJ-7c-veO" secondAttribute="trailing" id="zbo-cD-Rj0"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="addToBagControl" destination="qut-L9-xE1" id="GhJ-ET-fiB"/>
                 <outlet property="detailsLbl" destination="pRV-Lw-GpK" id="yvg-Pr-PgV"/>
-                <outlet property="priceLabel" destination="M8D-NJ-kSG" id="7Yl-d0-wX5"/>
                 <outlet property="productsImgView" destination="3XB-f9-5ru" id="jDA-8R-MGx"/>
                 <outlet property="titleLabel" destination="MeJ-7c-veO" id="ri5-xw-5H2"/>
             </connections>

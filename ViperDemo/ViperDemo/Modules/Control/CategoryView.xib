@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CategoryView" customModule="GreenGrocery" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CategoryView" customModule="ViperDemo" customModuleProvider="target">
             <connections>
                 <outlet property="contentView" destination="iN0-l3-epB" id="kpT-Nk-IDs"/>
                 <outlet property="details" destination="Nj6-Zh-5L7" id="ic8-fz-cia"/>
@@ -47,13 +47,25 @@
                         </label>
                     </subviews>
                 </stackView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8xj-zz-s5t">
+                    <rect key="frame" x="0.0" y="78" width="366" height="169.5"/>
+                    <state key="normal">
+                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="onCategoryTap:" destination="-1" eventType="touchUpInside" id="2cb-cC-143"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="y1w-jP-ZSc" firstAttribute="centerY" secondItem="iH0-78-oPy" secondAttribute="centerY" id="2cc-oo-bqV"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="8xj-zz-s5t" secondAttribute="trailing" id="ADY-Mz-SdY"/>
+                <constraint firstItem="y1w-jP-ZSc" firstAttribute="top" secondItem="8xj-zz-s5t" secondAttribute="bottom" constant="37" id="BzM-ta-qeQ"/>
                 <constraint firstItem="iH0-78-oPy" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="26" id="J7f-Ff-Rga"/>
                 <constraint firstItem="y1w-jP-ZSc" firstAttribute="width" secondItem="iH0-78-oPy" secondAttribute="width" constant="16" id="RN6-Pg-BmY"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="iH0-78-oPy" secondAttribute="bottom" constant="15" id="UCF-bO-8E2"/>
+                <constraint firstItem="8xj-zz-s5t" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="34" id="fSe-Jc-JUN"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="top" secondItem="BKB-1h-yRP" secondAttribute="top" constant="44" id="gmu-9n-hua"/>
                 <constraint firstItem="y1w-jP-ZSc" firstAttribute="height" secondItem="iH0-78-oPy" secondAttribute="height" constant="16" id="h8k-MF-reV"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="BKB-1h-yRP" secondAttribute="trailing" id="kfg-RB-OPU"/>
@@ -61,6 +73,7 @@
                 <constraint firstItem="y1w-jP-ZSc" firstAttribute="centerX" secondItem="iH0-78-oPy" secondAttribute="centerX" id="sRL-EE-7cS"/>
                 <constraint firstItem="BKB-1h-yRP" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="tjq-DM-ay0"/>
                 <constraint firstItem="BKB-1h-yRP" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" constant="34" id="xJ6-Iv-bnk"/>
+                <constraint firstItem="8xj-zz-s5t" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="xTt-uL-sz2"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>

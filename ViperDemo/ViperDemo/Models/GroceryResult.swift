@@ -1,32 +1,38 @@
 //
 //  GroceryResult.swift
-//  ViperDemo
+//  GreenGrocery
 //
-//  Created by Shreya on 07/05/20.
-//  Copyright © 2020 Shreya Pallan. All rights reserved.
+//  Created by Viswanathan Venkitachelam on 25/05/19.
+//  Copyright © 2019 LetsCodeEasy. All rights reserved.
 //
 
-import Foundation
-struct GroceryResult:Codable {
-    let groceries : [Grocery]
-}
-
-
-struct  Grocery : Codable {
-    let skuid : String
-    let title : String
-    let image : String
-    let details : String
-    let price : Double
+struct GroceryResult: Codable {
+    let groceries: [Grocery]
     
-    enum CodingKeys : String, CodingKey {
-        case skuid = "sku-id"
-        case title
-        case image = "product_image"
-        case details
-        case price
-        
+    enum CodingKeys: String, CodingKey {
+        case groceries = "data"
     }
-
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        groceries = try container.decode(Array<Grocery>.self, forKey: .groceries)
+    }
 }
 
+struct Grocery: Codable {
+    let id: Int
+    let title: String
+    let categoryId: Int
+    let imageId: Int
+    let details: String
+    let image: BaseImage
+    
+    private enum CodingKeys: String, CodingKey {
+        case id
+        case title
+        case categoryId
+        case imageId = "image_id"
+        case details
+        case image
+    }
+}

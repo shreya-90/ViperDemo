@@ -13,9 +13,8 @@ import Alamofire
 
 enum GroceryHttpRouter {   //cases for path
     case getGroceryCategories
-    case getGroceries(categoryId: String)
-    case downloadThumbnail(imageName: String)
-    case downloadImage(imageName: String)
+    case getGroceries(categoryId: Int)
+    
 }
 
 extension GroceryHttpRouter: HttpRouter {
@@ -29,10 +28,7 @@ extension GroceryHttpRouter: HttpRouter {
             return "/categories"
         case .getGroceries(let categoryId):
             return "/category/\(categoryId)"
-        case .downloadThumbnail(let imageName):
-            return "/thumbnail/show/\(imageName)"
-        case .downloadImage(let imageName):
-            return "/image/show/\(imageName)"
+       
         }
     }
     
@@ -48,7 +44,7 @@ extension GroceryHttpRouter: HttpRouter {
     
     func body() throws -> Data? {
         switch self {
-        case .getGroceryCategories, .getGroceries, .downloadThumbnail, .downloadImage:
+        case .getGroceryCategories, .getGroceries:
             return nil
         }
     }

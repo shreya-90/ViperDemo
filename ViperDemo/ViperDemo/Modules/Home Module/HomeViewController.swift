@@ -23,6 +23,12 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var topLeftCategoryView: CategoryView!
     @IBOutlet weak var bottomLeftCategoryView: CategoryView!
     
+    lazy var categoryViews: [CategoryView] = [
+        self.topCategoryView,
+        self.topLeftCategoryView,
+        self.bottomLeftCategoryView,
+        self.rightCategoryView
+    ]
     
     var presenter : HomePresentation!
     var dataSource : [GroceryItemViewModel] = [] {
@@ -71,30 +77,51 @@ class HomeViewController: UIViewController {
 
 extension HomeViewController : HomeView {
     func loadCategories(categoriesList: [CategoryItemViewModel]) {
-        topCategoryView.configure(usingViewModel: categoriesList[0]) { [weak self] (imageName) in
-            self?.presenter.onFetchThumbnail(imageName: imageName, completion: { (data) in
-                guard let image = UIImage(data: data) else { return }
-                self?.topCategoryView.updateImage(image: image)
+        
+        guard categoriesList.count > 0 else { return }
+        
+        categoryViews.enumerated().forEach{ (index, categoryView) in
+            
+            categoryView.configure(usingViewModel: categoriesList[index], onComplete: { [weak self] (imageName) in
+                self?.presenter.onFetchThumbnail(imageName: imageName, completion: { (image) in
+                   // guard let image = UIImage(data: data) else { return }
+                    categoryView.updateImage(image: image)
+                })
+                }, onCategorySelectionHandler: { (categoryId, title) in
+                    print("Category id = \(categoryId), title = \(title)")
+                    self.presenter?.onCategorySelection(usingCategory: (id: categoryId, title: title))
             })
+            
         }
-        rightCategoryView.configure(usingViewModel: categoriesList[1]) { [weak self] (imageName) in
-            self?.presenter.onFetchThumbnail(imageName: imageName, completion: { (data) in
-                guard let image = UIImage(data: data) else { return }
-                self?.rightCategoryView.updateImage(image: image)
-            })
-        }
-        topLeftCategoryView.configure(usingViewModel: categoriesList[2]) { [weak self] (imageName) in
-            self?.presenter.onFetchThumbnail(imageName: imageName, completion: { (data) in
-                guard let image = UIImage(data: data) else { return }
-                self?.topLeftCategoryView.updateImage(image: image)
-            })
-        }
-        bottomLeftCategoryView.configure(usingViewModel: categoriesList[3]) { [weak self] (imageName) in
-            self?.presenter.onFetchThumbnail(imageName: imageName, completion: { (data) in
-                guard let image = UIImage(data: data) else { return }
-                self?.bottomLeftCategoryView.updateImage(image: image)
-            })
-        }
+        
+        
+        
+        
+        
+//        topCategoryView.configure(usingViewModel: categoriesList[0]) { [weak self] (imageName) in
+//            self?.presenter.onFetchThumbnail(imageName: imageName, completion: { (data) in
+//                
+//                self?.topCategoryView.updateImage(image: image)
+//            })
+//        }
+//        rightCategoryView.configure(usingViewModel: categoriesList[1]) { [weak self] (imageName) in
+//            self?.presenter.onFetchThumbnail(imageName: imageName, completion: { (data) in
+//                guard let image = UIImage(data: data) else { return }
+//                self?.rightCategoryView.updateImage(image: image)
+//            })
+//        }
+//        topLeftCategoryView.configure(usingViewModel: categoriesList[2]) { [weak self] (imageName) in
+//            self?.presenter.onFetchThumbnail(imageName: imageName, completion: { (data) in
+//                guard let image = UIImage(data: data) else { return }
+//                self?.topLeftCategoryView.updateImage(image: image)
+//            })
+//        }
+//        bottomLeftCategoryView.configure(usingViewModel: categoriesList[3]) { [weak self] (imageName) in
+//            self?.presenter.onFetchThumbnail(imageName: imageName, completion: { (data) in
+//                guard let image = UIImage(data: data) else { return }
+//                self?.bottomLeftCategoryView.updateImage(image: image)
+//            })
+//        }
     }
     
     
@@ -111,29 +138,32 @@ extension HomeViewController : HomeView {
 }
 
 
-extension HomeViewController : UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataSource.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let viewModel = dataSource[indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: HomeViewController.groceryCellID, for: indexPath) as! GroceryItemCell2
-        cell.configure(using: viewModel) { (result) in
-            print("Item aaded with sku = \(result.skuId) and quantity = \(result.stepValue)")
-            let skuItem : SkuItem = (skuId : result.skuId,  quantity : result.stepValue)
-            self.presenter.onAddToCart(skuItem: skuItem)
-        }
-        return cell
-        
-    }
-    
-    
-}
+//extension HomeViewController : UITableViewDataSource {
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return dataSource.count
+//    }
+//
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let viewModel = dataSource[indexPath.row]
+//        let cell = tableView.dequeueReusableCell(withIdentifier: HomeViewController.groceryCellID, for: indexPath) as! GroceryItemCell2
+//
+//
+//        cell.configure(using: viewModel)
+//        cell.configure(using: viewModel) { (result) in
+//            print("Item aaded with sku = \(result.skuId) and quantity = \(result.stepValue)")
+//            let skuItem : SkuItem = (skuId : result.skuId,  quantity : result.stepValue)
+//            self.presenter.onAddToCart(skuItem: skuItem)
+//        }
+//        return cell
+//
+//    }
+//
+//
+//}
 
 
-extension HomeViewController :UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
-    }
-}
+//extension HomeViewController :UITableViewDelegate {
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return 100
+//    }
+//}

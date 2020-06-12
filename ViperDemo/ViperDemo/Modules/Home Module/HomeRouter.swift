@@ -9,7 +9,7 @@ import UIKit
 import Foundation
 
 protocol  HomeRouting {
-    
+    func routeToGroceryListing(usingCategory category : (id: Int, title: String)) -> Void
 }
 
 class HomeRouter {
@@ -22,5 +22,8 @@ class HomeRouter {
 
 
 extension HomeRouter : HomeRouting {
-    
+    func routeToGroceryListing(usingCategory category: (id: Int, title: String)) {
+        let groceriesList = GroceriesListModuleBuilder.build(usingCategory: category)
+        self.viewController.navigationController?.pushViewController(groceriesList, animated: true)
+    }
 }

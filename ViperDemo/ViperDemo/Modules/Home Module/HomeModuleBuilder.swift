@@ -16,7 +16,8 @@ class HomeModuleBuilder {
     static func build(usingNavigationFactory factory : NavigationFactory) -> UIViewController {
        let storyboard =  UIStoryboard(name: "Home", bundle: nil)
        let view = storyboard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
-        let homeInteractor = HomeInteractor(service: GroceryService.shared, database: RealmDatabase.shared  )
+        let homeInteractor = GroceryInteractor(service: GroceryService.shared, database: RealmDatabase.shared  )
+        view.title = "Grocery Categories".uppercased()
         let cartIntercator = CartInteractor(database:RealmDatabase.shared)
         let imageInteractor = ImageInteractor(service: GroceryService.shared )
         let router = HomeRouter(vc: view)

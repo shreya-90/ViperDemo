@@ -21,17 +21,17 @@ class StubService {
 }
 
 extension StubService : GroceriesAPI{
-    func fetchCategories(completion: ([Category]) -> Void) {
+   
+    
+    func fetchCategories(completion: @escaping categoriesClosure) {
         fatalError("No implementation for this")
     }
-    
-    
-    func fetchGroceries(completion:groceriesClosure) {
+    func fetchGroceries(categoryId: Int,completion:groceriesClosure) {
         if let url = Bundle.main.url(forResource: "products", withExtension: "json") {
             
             do {
                 let data = try Data(contentsOf: url)
-                let groceryResult = try JSONDecoder().decode(GroceryResult.self, from: data)
+                let groceryResult = try JSONDecoder().decode(Category.self, from: data)
                 completion(groceryResult)
             }catch{
                 print(error)

@@ -11,12 +11,13 @@ import Foundation
 protocol HomePresentation {
     func viewDidLoad() -> Void
     func onAddToCart(skuItem:SkuItem) -> Void
-    func onFetchThumbnail(imageName:String, completion : @escaping (Data) -> Void) -> Void
+    func onFetchThumbnail(imageName:String, completion : @escaping imageClosure ) -> Void
+    func onCategorySelection(usingCategory category: (id: Int, title: String)) -> Void
 }
 
 class HomePresenter {
     weak var view :  HomeView?
-    var router : HomeRouting
+    var router : HomeRouting?
     
     typealias UseCase = (
 //        getGroceries : (groceriesClosure) -> Void,
@@ -39,13 +40,14 @@ class HomePresenter {
 
 extension HomePresenter : HomePresentation {
    
-    func onFetchThumbnail(imageName: String, completion: @escaping (Data) -> Void) {
-        self.useCase?.fetchThumbnail(imageName,{  data in
-            
-            guard let data = data else { return }
-            
-            completion(data)
-        })
+    func onCategorySelection(usingCategory category: (id: Int, title: String)) {
+        self.router?.routeToGroceryListing(usingCategory: category)
+    }
+    
+    func onFetchThumbnail(imageName: String, completion: @escaping imageClosure) {
+        self.useCase?.fetchThumbnail(imageName){  image in
+            completion(image)
+        }
     }
     
     func onAddToCart(skuItem: SkuItem) {
@@ -62,25 +64,12 @@ extension HomePresenter : HomePresentation {
     
     
     func viewDidLoad() {
-//        let homeModel = interactor.getTitle()
-//
-//        DispatchQueue.main.async {
-//            self.view?.updateView(title: homeModel.title)
-//        }
-//
-//        print(homeModel)
+
         
         
         DispatchQueue.global(qos: .background).async { [weak self] in
             //asynchronous work
             self?.useCase?.getCategories {  (categories) in
-//                let groceryList = result.groceries.compactMap({ grocery -> GroceryItemViewModel in
-//                    let cartItem = self?.useCase?.getCartItem(grocery.skuid)
-//                    return GroceryItemViewModel(using: grocery, cartItem:cartItem!  ) })
-//                DispatchQueue.main.async {
-//                    //callback
-//                    self?.view?.updateGroceries(groceriesList: groceryList)
-//                }
                 
                 print("Load categories \(categories)")
                 self?.view?.loadCategories(categoriesList: categories.compactMap({
@@ -105,28 +94,28 @@ struct CategoryItemViewModel {
     let details : String
     let imageName : String
     
-    init(using CategoryModel : Category) {
-        self.id = CategoryModel.id
-        self.title = CategoryModel.category
-        self.details = CategoryModel.details
-        self.imageName = CategoryModel.image.name
+    init(using categoryModel: Category) {
+        self.id = categoryModel.id
+        self.title = categoryModel.category
+        self.details = categoryModel.description
+        self.imageName = categoryModel.categoryImage.name
     }
 }
 
 struct GroceryItemViewModel {
-    let id: String
+    let id: Int
     let title : String
     let details : String
     let image : String
-    let price : String
-    let cartValue : CartValueViewModel
+//    let price : String
+//    let cartValue : CartValueViewModel
     
-    init(using groceryModel : Grocery ,cartItem : CartItem){
-        self.id = groceryModel.skuid
+    init(using groceryModel : Grocery){
+        self.id = groceryModel.id
         self.title = groceryModel.title
         self.details = groceryModel.details
-        self.image = groceryModel.image
-        self.price = "$ \(groceryModel.price )"
-        self.cartValue = CartValueViewModel(id: cartItem.skuId, stepValue: cartItem.value )
+        self.image = groceryModel.image.name
+//        self.price = "$ \(groceryModel.price )"
+//        self.cartValue = CartValueViewModel(id: cartItem.skuId, stepValue: cartItem.value )
     }
 }

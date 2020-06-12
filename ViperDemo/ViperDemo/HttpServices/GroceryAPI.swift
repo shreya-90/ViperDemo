@@ -7,9 +7,9 @@
 //
 
 import Foundation
-typealias groceriesClosure = (GroceryResult) -> Void
+typealias groceriesClosure = (Category) -> Void
 typealias categoriesClosure = ([Category]) -> Void
 protocol  GroceriesAPI {
     func fetchCategories(completion:@escaping categoriesClosure) -> ()
-    func fetchGroceries(completion:groceriesClosure) -> ()
+    func fetchGroceries(categoryId: Int, completion:@escaping groceriesClosure) -> ()
 }
