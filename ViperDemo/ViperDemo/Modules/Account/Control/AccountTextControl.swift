@@ -10,7 +10,7 @@ import UIKit
 
 fileprivate let accountTextControlNibName = "AccountTextControl"
 
-class AccountTextControl: UIControl, ViewLoadable {
+class AccountTextControl: UIControl {
     
     var rules: [Rule] = []
     static var nibName: String = accountTextControlNibName

@@ -12,8 +12,14 @@ import  UIKit
 class TabBarModuleBuilder {
     
     
-    static  func build(usingSubModules submodules : TabBarRouter.SubModules) -> UITabBarController {
+    static  func build() -> UITabBarController {
     
+        let submodules = (
+                    home : HomeModuleBuilder.build(usingNavigationFactory: NavigationBuilder.build),
+                    cart : CartBuilder.build(usingNavigationFactory: NavigationBuilder.build),
+                    profile : ProfileBuilder.build(usingNavigationFactory: NavigationBuilder.build)
+                )
+        
         let tabs = TabBarRouter.tabs(usingSubmodules: submodules)
         let interactor  = CartInteractor(database: RealmDatabase.shared)
         let presenter = TabBarPresenter(useCase: (
