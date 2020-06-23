@@ -16,7 +16,10 @@ class LoginBuilder {
         let storyboard = GroceryStoryboard.login.instance
         let view = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
         let router = LoginRouter(view: view, switchSignUp: switchSignUp)
-        let presenter = LoginPresenter(router: router)
+        let authInteractor = AuthInteractor.shared
+        let presenter = LoginPresenter(router: router, useCases: (
+            login : authInteractor.login, ()
+        ))
         presenter.view = view
         view.presenter = presenter
         

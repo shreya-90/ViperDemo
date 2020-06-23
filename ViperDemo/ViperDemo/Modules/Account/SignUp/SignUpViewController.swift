@@ -8,10 +8,10 @@
 
 import UIKit
 
-struct AuthStatusViewModel {
-    let title: String
-    let color: String
-}
+//struct AuthStatusViewModel {
+//    let title: String
+//    let color: String
+//}
 
 protocol SignUpView: class {
 //    func updateInvalid()
@@ -19,6 +19,7 @@ protocol SignUpView: class {
 //    func updateStatus(usingViewModel viewModel: AuthStatusViewModel)
     func updateInvalid()
     func updateProgress(isCompleted:Bool)
+    func updateStatus(usingViewModel viewModel: AuthStatusViewModel) -> Void
 }
 
 protocol SignUpPresentation {
@@ -49,9 +50,9 @@ class SignUpViewController: UIViewController {
         let fields: [FieldValidatable] = [nameControl, emailControl, passwordControl]
         presenter?.validate(usingFields: fields) { isValid in
             if isValid {
-                // presenter?.signUp(username: nameControl.inputTextField.text!,
-//                                  email: emailControl.inputTextField.text!,
-//                                  password: passwordControl.inputTextField.text!)
+                 presenter?.signUp(username: nameControl.inputTextField.text!,
+                                  email: emailControl.inputTextField.text!,
+                                  password: passwordControl.inputTextField.text!)
             }
         }
     }
@@ -63,8 +64,23 @@ class SignUpViewController: UIViewController {
 }
 
 extension SignUpViewController: SignUpView {
+    func updateStatus(usingViewModel viewModel: AuthStatusViewModel) {
+        statusLabel.text = viewModel.title
+        statusLabel.textColor = UIColor(hex: viewModel.color.rawValue)
+    }
+    
     func updateProgress(isCompleted: Bool) {
-        
+        self.signUpButton.isEnabled = isCompleted
+        if !isCompleted{
+            self.signUpButton.setTitle("Signing up...", for: .normal)
+        }
+        else {
+            nameControl.inputTextField.text = ""
+            emailControl.inputTextField.text = ""
+            passwordControl.inputTextField.text = ""
+            
+            self.signUpButton.setTitle("SignUp", for: .normal)
+        }
     }
     
 

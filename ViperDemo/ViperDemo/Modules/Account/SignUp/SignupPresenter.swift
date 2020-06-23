@@ -12,21 +12,34 @@ import UIKit
 
 protocol SignupPresentation {
     func onShowLogin() ->Void
-    func validate(usingFields fields: [FieldValidatable], completion: (Bool) -> ()) 
+    func validate(usingFields fields: [FieldValidatable], completion: (Bool) -> ())
+    func signUp(username:String,email:String,password:String) -> Void
 }
 
 class SignupPresenter {
     weak var view : SignUpView?
     private let router : SignupRouting
     
-    init(router : SignupRouting) {
+    typealias UseCases = (
+        signUp: (_ username: String,
+        _ email: String,
+        _ password : String ,
+        _ completion: @escaping (AuthResult<String>) -> Void) -> Void, ()
+    )
+    
+    private let useCases : UseCases
+    
+    init(router : SignupRouting, useCases: UseCases) {
         self.router = router
+        self.useCases = useCases 
     }
     
     
 }
 
 extension SignupPresenter : SignupPresentation {
+   
+    
     func onShowLogin() {
          self.router.routeToLogin()
     }
@@ -45,7 +58,28 @@ extension SignupPresenter : SignupPresentation {
         self.view?.updateInvalid()
         
         if isValid {
+            self.view?.updateProgress(isCompleted: false) // to update Signup button title
+        }
+        completion(isValid)
+    }
+    
+    func signUp(username: String, email: String, password: String) {
+        self.useCases.signUp(username,email,password) { result in
             
+            switch(result){
+                
+            case .success(let message):
+                self.view?.updateStatus(usingViewModel: AuthStatusViewModel(title:message,color: ColourConstant.success))
+                DispatchQueue.main.asyncAfter(deadline:.now() + 2){ [weak self] in
+                    self?.router.routeToLogin()
+                }
+                
+                break
+            case .failure(let result):
+                self.view?.updateStatus(usingViewModel: AuthStatusViewModel(title:result,color: ColourConstant.failure))
+                break
+            }
+            self.view?.updateProgress(isCompleted: true)
         }
     }
 }

@@ -8,6 +8,10 @@
 
 import Foundation
 
+struct AuthStatusViewModel {
+    let title : String
+    let color : ColourConstant
+}
 
 protocol AccountPresentation {
     func viewDidLoad()

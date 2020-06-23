@@ -21,7 +21,7 @@ class SignupRouter {
     init(viewController : UIViewController,switchLogin: @escaping () -> Void) {
         self.viewController = viewController
         self.switchLogin = switchLogin
-    }
+    }  
 }
 
 extension SignupRouter : SignupRouting {

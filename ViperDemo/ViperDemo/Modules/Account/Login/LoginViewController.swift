@@ -34,8 +34,10 @@ class LoginViewController: UIViewController {
     @IBAction func onLogin(_ sender: Any) {
         self.presenter?.validate(usingFields: [emailAccountControl,passwordAccountControl], completion:
             {(isValid) in
+                //if client side validation is completed, lets do the login
                 if isValid {
                     //We will proceed wth login API call
+                    self.presenter?.login(email: emailAccountControl.validationText, password: passwordAccountControl.validationText)
                 }
         })
     }

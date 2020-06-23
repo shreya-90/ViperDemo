@@ -18,7 +18,12 @@ class SignupBuilder {
         let view = storyboard.instantiateViewController(withIdentifier: "SignUpViewController") as! SignUpViewController
         
         let router = SignupRouter(viewController: view, switchLogin:switchLogin )
-        let presenter = SignupPresenter(router: router)
+        let authInteractor = AuthInteractor.shared
+        let presenter = SignupPresenter(router: router,
+                                        useCases: (
+                                            signUp: authInteractor.signUp, ()
+            )
+        )
         presenter.view = view
         view.presenter = presenter
         return view

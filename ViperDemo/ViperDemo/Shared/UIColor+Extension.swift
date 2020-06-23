@@ -41,6 +41,11 @@ import UIKit
 
 import UIKit
 
+enum ColourConstant:String {
+    case success = "#009900"
+    case failure = "#E50000"
+}
+
 public extension UIColor {
     
     static let primary = UIColor(hex: "#C52134")
